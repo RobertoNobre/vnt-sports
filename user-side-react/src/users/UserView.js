@@ -5,13 +5,14 @@ import {
   Col,
   Button
 } from 'react-bootstrap';
-import { PagingState, CustomPaging, FilteringState, IntegratedFiltering } from '@devexpress/dx-react-grid';
+import { PagingState, CustomPaging, SearchState, IntegratedFiltering } from '@devexpress/dx-react-grid';
 import {
   Grid,
   Table,
   TableHeaderRow,
   PagingPanel,
-  TableFilterRow,
+  SearchPanel,
+  Toolbar
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 import ActionComponent, { ActionButton } from '../commons/ActionComponent';
@@ -139,12 +140,12 @@ export default class UserView extends PureComponent {
                     style={{margin: '0 -1px -15px -1px'}}
                     rows={rows}
                     columns={this.columns}>
+                    <SearchState defaultValue="Paris" />
+                    <IntegratedFiltering />
                     <ActionComponent>
                       <ActionButton onClick={this.onEdit} icon='edit' bsStyle="warning" name="Editar" />
                       <ActionButton onClick={this.onDelete} icon='trash' bsStyle="danger" name="Excluir" />
                     </ActionComponent>
-                    <FilteringState defaultFilters={[]} />
-                    <IntegratedFiltering />
                     <PagingState
                       currentPage={pageable.activePage}
                       onCurrentPageChange={this.onCurrentPageChange}
@@ -156,8 +157,9 @@ export default class UserView extends PureComponent {
                     />
                     <Table />
                     <TableHeaderRow />
-                    <TableFilterRow />
                     <PagingPanel pageSizes={pageSizes} />
+                    <Toolbar />
+                    <SearchPanel />
                   </Grid>
                 </Fragment>
               }
