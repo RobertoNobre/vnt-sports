@@ -3,7 +3,6 @@ import {
   Panel,
   Row,
   Col,
-  Button
 } from 'react-bootstrap';
 import { PagingState, CustomPaging, SearchState, IntegratedFiltering } from '@devexpress/dx-react-grid';
 import {
@@ -12,7 +11,9 @@ import {
   TableHeaderRow,
   PagingPanel,
   SearchPanel,
-  Toolbar
+  Toolbar,
+  VirtualTable,
+  TableColumnResizing
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 import ActionComponent, { ActionButton } from '../commons/ActionComponent';
@@ -20,6 +21,7 @@ import { pageSizes } from '../utils/ConstatnsUtil';
 import ConfirmDelete, { handleModalDelete, handleModalClose } from '../commons/ConfirmDelete';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
+import PageTitle from './../components/PageTitle';
 import Message from '../commons/Message';
 import Loading from '../commons/Loading';
 
@@ -41,6 +43,18 @@ h3 {
   font-weight: bold;
 }
 
+button.hide-hover {
+  display: none;
+}
+
+tr:hover button.hide-hover {
+  display: inline-block;
+}
+
+.panel-default {
+  height: 400px;
+}
+
 @media (min-width:768px) {
 
   .icon {
@@ -50,8 +64,33 @@ h3 {
   .box-part {
     padding-top: 15px;
   }
+
+  .fi{
+    margin-left: 40px;
+  }
+
+  hr{
+    margin-top: 40px;
+  }
+
+  .addBtn{
+    margin-top: 25px;
+    margin-left: 50px;
+  }
+
+  .row{
+    margin-left: 0px;
+    margin-right: 0px;
+  }
 }
 `;
+
+const TableComponent = ({ ...restProps }) => (
+  <Table.Table
+    {...restProps}
+    className="table-striped"
+  />
+);
 
 export default class UserView extends PureComponent {
   columns = [
@@ -64,7 +103,20 @@ export default class UserView extends PureComponent {
     { name: 'posts', title: "Posts" },
     { name: 'albums', title: "Albums" },
     { name: 'photos', title: "Photos" },
-    { name: 'actions', title: "Actions" },
+    { name: 'actions', title: "#" },
+  ];
+  
+  defaultColumnWidths = [
+    { columnName: 'username', width: 130 },
+    { columnName: 'name', width: 130 },
+    { columnName: 'email', width: 130 },
+    { columnName: 'city', width: 130 },
+    { columnName: 'rideInGroup', width: 130 },
+    { columnName: 'dayWeek', width: 130 },
+    { columnName: 'posts', width: 130 },
+    { columnName: 'albums', width: 130 },
+    { columnName: 'photos', width: 130 },
+    { columnName: 'actions', width: 130 },
   ];
 
   onCreate = () => (this.props.history.push('/users/new'));
@@ -89,12 +141,13 @@ export default class UserView extends PureComponent {
 
   render() {
     const { rows, pageable } = this.props;
+    rows.push({name:'roberto', username: 'roberto'},{name:'roberto', username: 'roberto'},{name:'roberto', username: 'roberto'},)
     return (
       <Fragment>
         <PanelStyles>
         <Panel>
           <Row style={{backgroundColor: '#A3E1D4', height: '120px', paddingTop: '15px'}}>
-            <Col sm={3} md={2} xs={4} className='box-part'>
+            <Col sm={3} md={2} xs={4} className='box-part fi'>
               <Col sm={4} className='icon'>
                 <FontAwesomeIcon icon="puzzle-piece" size='3x' />
               </Col>
@@ -112,7 +165,7 @@ export default class UserView extends PureComponent {
                 <h3>Advanced</h3>
               </Col>
             </Col>
-            <Col sm={3} md={2} xs={4} className='box-part'>
+            <Col sm={3} md={3} xs={4} className='box-part'>
               <Col sm={4} className='icon'>
                 <FontAwesomeIcon icon="map-signs" size='3x' />
               </Col>
@@ -122,29 +175,30 @@ export default class UserView extends PureComponent {
               </Col>
             </Col>
           </Row>
-          <Panel.Heading>
-            <h3>Users</h3>
-            <Loading loading={this.props.loading} />
-          </Panel.Heading>
           <Panel.Body>
             <Row>
-              <Col className="text-right" md={12} style={{margin: '-55px 0 15px 0'}}>
-                <Button bsStyle="primary" onClick={this.onCreate}>
+              <Col md={1} className='fi'><h1>Users</h1><Loading loading={this.props.loading} /></Col> 
+              <Col md={10}>
+                <hr style={{backgroundSize: '4px', borderTop: '4px solid #C7C7C7', borderColor: '#C7C7C7'}} />
+              </Col>{/*
+              <Col className="text-right" md={3} sm={4}>
+                <Button bsStyle="primary btn-block" className="addBtn" onClick={this.onCreate}>
                   <span className="glyphicon glyphicon-plus"/> Adicionar
                 </Button>
-              </Col>
-
+              </Col>*/}
+            </Row>
+            <Row>
+              <Col md={12} className=''>
               { rows && rows.length>0 &&
                 <Fragment>
                   <Grid
-                    style={{margin: '0 -1px -15px -1px'}}
                     rows={rows}
                     columns={this.columns}>
-                    <SearchState defaultValue="Paris" />
+                    <SearchState defaultValue="" />
                     <IntegratedFiltering />
                     <ActionComponent>
-                      <ActionButton onClick={this.onEdit} icon='edit' bsStyle="warning" name="Editar" />
-                      <ActionButton onClick={this.onDelete} icon='trash' bsStyle="danger" name="Excluir" />
+                      <ActionButton className="hide-hover btn-sm" onClick={this.onEdit} icon='edit' bsStyle="warning" />
+                      <ActionButton className="hide-hover btn-sm" onClick={this.onDelete} icon='trash' bsStyle="danger" />
                     </ActionComponent>
                     <PagingState
                       currentPage={pageable.activePage}
@@ -155,7 +209,9 @@ export default class UserView extends PureComponent {
                     <CustomPaging
                       totalCount={pageable.totalItemsCount}
                     />
-                    <Table />
+                    <Table tableComponent={TableComponent}/>
+                    <VirtualTable />
+                    <TableColumnResizing defaultColumnWidths={this.defaultColumnWidths} />
                     <TableHeaderRow />
                     <PagingPanel pageSizes={pageSizes} />
                     <Toolbar />
@@ -163,6 +219,7 @@ export default class UserView extends PureComponent {
                   </Grid>
                 </Fragment>
               }
+              </Col>
             </Row>
           </Panel.Body>
         </Panel>

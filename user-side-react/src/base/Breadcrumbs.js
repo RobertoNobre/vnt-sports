@@ -9,7 +9,7 @@ class Index extends PureComponent {
     return (
         <Breadcrumb style={{marginBottom: '0px'}}>
           <Breadcrumb.Item 
-            style={{fontSize: '18px', marginLeft: '20px', color: '#18A689'}}
+            style={{fontSize: '18px', marginLeft: '50px', color: '#18A689'}}
             href=''>
             <FontAwesomeIcon icon="home"/>
           </Breadcrumb.Item>
