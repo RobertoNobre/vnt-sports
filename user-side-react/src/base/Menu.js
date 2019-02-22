@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import {
   Nav,
   Navbar,
-  NavItem,
   NavDropdown,
   MenuItem,
 } from 'react-bootstrap';
@@ -23,6 +22,23 @@ const MenuDesign = styled.div`
     color: #18A689;
   }
 
+  .navbar-nav>li>.dropdown-menu {
+    margin-top: 0;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    width: 200px;
+  }
+
+  .dropdown-menu>li>a {
+    display: block;
+    padding: 8px 20px;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.42857143;
+    color: #333;
+    white-space: nowrap;
+  }
+
   .navbar-nav>li{
     margin-right: 30px;
   }
@@ -36,6 +52,23 @@ const MenuDesign = styled.div`
   .navbar-default .navbar-nav>.open>a:focus, 
   .navbar-default .navbar-nav>.open>a:hover {
     background-color: #ffffff;
+  }
+
+  .menuu-button {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-size: 16px;
+    color: #333;
+    border: none;
+    background-color: transparent;
+  }
+
+  .icon-menu{
+    font-size: 23px;
+    margin-top: -px;
+    margin-right: 5px;
+    margin-bottom: -3px;
   }
 `;
 
@@ -65,14 +98,14 @@ class Menu extends PureComponent {
                 <NavDropdown 
                   id="reports" 
                   eventKey={3} 
-                  title={ <label><FontAwesomeIcon icon="user-circle"/> Roberto Nobre</label>} 
+                  title={ <button className='menuu-button'><FontAwesomeIcon className='icon-menu' icon="user-circle"/> Roberto Nobre</button>} 
                   onSelect={this.onSelectClick}>
                   <MenuItem eventKey={3.1}>Friends List</MenuItem>
                   <MenuItem eventKey={3.2}>Saved Items</MenuItem>
                   <MenuItem eventKey={3.3}>Notifications</MenuItem>
                   <MenuItem eventKey={3.4}>User Preferences</MenuItem>
                   <MenuItem divider />
-                  <MenuItem eventKey={3.4}>Logout</MenuItem>
+                  <MenuItem eventKey={3.4}>Log out</MenuItem>
                 </NavDropdown>
               </Nav>
             </Navbar.Collapse>

@@ -17,8 +17,40 @@ import {
 import ActionComponent, { ActionButton } from '../commons/ActionComponent';
 import { pageSizes } from '../utils/ConstatnsUtil';
 import ConfirmDelete, { handleModalDelete, handleModalClose } from '../commons/ConfirmDelete';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import styled from 'styled-components';
 import Message from '../commons/Message';
 import Loading from '../commons/Loading';
+
+const PanelStyles = styled.div`
+.panel-default {
+  border: none;
+}
+
+.icon {
+  color: #1AB394;
+}
+
+p {
+  margin: 0 0 0px;
+}
+
+h3 {
+  margin-top: 0px; 
+  font-weight: bold;
+}
+
+@media (min-width:768px) {
+
+  .icon {
+    text-align: end;
+   }
+
+  .box-part {
+    padding-top: 15px;
+  }
+}
+`;
 
 export default class UserView extends PureComponent {
   columns = [
@@ -58,9 +90,39 @@ export default class UserView extends PureComponent {
     const { rows, pageable } = this.props;
     return (
       <Fragment>
+        <PanelStyles>
         <Panel>
+          <Row style={{backgroundColor: '#A3E1D4', height: '120px', paddingTop: '15px'}}>
+            <Col sm={3} md={2} xs={4} className='box-part'>
+              <Col sm={4} className='icon'>
+                <FontAwesomeIcon icon="puzzle-piece" size='3x' />
+              </Col>
+              <Col sm={8}>
+                <p>Sport type</p>
+                <h3>Cycling</h3>
+              </Col>
+            </Col>
+            <Col sm={3} md={2} xs={4} className='box-part'>
+              <Col sm={4} className='icon'>
+                <FontAwesomeIcon icon="trophy" size='3x' />
+              </Col>
+              <Col sm={8}>
+                <p>Mode</p>
+                <h3>Advanced</h3>
+              </Col>
+            </Col>
+            <Col sm={3} md={2} xs={4} className='box-part'>
+              <Col sm={4} className='icon'>
+                <FontAwesomeIcon icon="map-signs" size='3x' />
+              </Col>
+              <Col sm={8}>
+                <p>Route</p>
+                <h3>30 miles</h3>
+              </Col>
+            </Col>
+          </Row>
           <Panel.Heading>
-            <h3 style={{marginTop: '0px'}}>Users</h3>
+            <h3>Users</h3>
             <Loading loading={this.props.loading} />
           </Panel.Heading>
           <Panel.Body>
@@ -102,6 +164,7 @@ export default class UserView extends PureComponent {
             </Row>
           </Panel.Body>
         </Panel>
+        </PanelStyles>
         <Message messages={this.props.messages} failures={this.props.failures} />
         <ConfirmDelete
           show={!!this.props.row.id}

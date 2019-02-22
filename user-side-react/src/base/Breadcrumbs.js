@@ -1,34 +1,33 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
 
-import { Grid, Button, Breadcrumb } from 'react-bootstrap';
+import { Breadcrumb } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class Index extends PureComponent {
   render() {
      const url = this.props.history.location.pathname.split('/').splice(1);
     return (
-        <Breadcrumb>
+        <Breadcrumb style={{marginBottom: '0px'}}>
           <Breadcrumb.Item 
             style={{fontSize: '18px', marginLeft: '20px', color: '#18A689'}}
             href=''>
             <FontAwesomeIcon icon="home"/>
           </Breadcrumb.Item>
         { url.map( (item, index) => {
-              if(!parseInt(item) > 0){
-                if( (url.length -1) !== index ){
-                  return <Breadcrumb.Item 
-                            style={{fontSize: '18px', color: '#18A689'}}
+              return !parseInt(item) > 0 ?
+                url.length -1 !== index ?
+                  <Breadcrumb.Item 
+                            style={{fontSize: '18px', color: '#18A689', textTransform: 'capitalize'}}
                             href={`${window.location.origin}/${item}`}>
                             {item}
                           </Breadcrumb.Item>
-                }else{
-                  return <Breadcrumb.Item 
-                            style={{fontSize: '18px'}}
+                :
+                  <Breadcrumb.Item 
+                            style={{fontSize: '18px', textTransform: 'capitalize'}}
                             active>
                             {item}
                           </Breadcrumb.Item>
-                }
-              }
+              : ''
             }  ) }
       </Breadcrumb>
     );

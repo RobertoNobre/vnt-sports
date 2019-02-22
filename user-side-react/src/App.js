@@ -9,16 +9,21 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import $ from 'jquery';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faUserCircle } from '@fortawesome/free-solid-svg-icons'
-import { faQuestion } from '@fortawesome/free-solid-svg-icons'
-import { faHome } from '@fortawesome/free-solid-svg-icons'
+import { 
+  faUserCircle, 
+  faQuestion, 
+  faHome, 
+  faPuzzlePiece, 
+  faTrophy, 
+  faMapSigns } from '@fortawesome/free-solid-svg-icons'
+
 
 library.add(faUserCircle)
 library.add(faQuestion)
 library.add(faHome)
-
-
-
+library.add(faPuzzlePiece)
+library.add(faTrophy)
+library.add(faMapSigns)
 
 window.jQuery = window.$ = $;
 require('bootstrap');
