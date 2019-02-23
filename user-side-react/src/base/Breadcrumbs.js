@@ -17,12 +17,14 @@ class Index extends PureComponent {
               return !parseInt(item) > 0 ?
                 url.length -1 !== index ?
                   <Breadcrumb.Item 
+                            key={index}
                             style={{fontSize: '18px', color: '#18A689', textTransform: 'capitalize'}}
                             href={`${window.location.origin}/${item}`}>
                             {item}
                           </Breadcrumb.Item>
                 :
                   <Breadcrumb.Item 
+                            key={index}
                             style={{fontSize: '18px', textTransform: 'capitalize'}}
                             active>
                             {item}

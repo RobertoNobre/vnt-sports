@@ -1,3 +1,4 @@
+import HomeContainer from '../home/HomeContainer';
 import UserContainer from '../users/UserContainer';
 import UserContainerForm from '../users/UserContainerForm';
 
@@ -15,6 +16,8 @@ export const onSelect = (key, history) => {
 }
 
 export const routes = [
+  { type: 'protected', mode: "view", exact: true, path: "/", component: HomeContainer },
+
   { type: 'protected', mode: "view", exact: true, path: "/users", component: UserContainer },
   { type: 'protected', mode: "edit", exact: true, path: "/users/:id/edit", component: UserContainerForm },
   { type: 'protected', mode: "new" , exact: true, path: "/users/new", component: UserContainerForm },

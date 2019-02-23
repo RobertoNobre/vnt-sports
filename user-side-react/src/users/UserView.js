@@ -61,8 +61,8 @@ export default class UserView extends PureComponent {
     { name: 'name', title: "Name" },
     { name: 'email', title: "E-mail" },
     { name: 'city', title: "City" },
-    { name: 'rideInGroup', title: "Ride in group" },
-    { name: 'dayWeek', title: "Day of the week" },
+    { name: 'ride_group', title: "Ride in group" },
+    { name: 'days_week', title: "Day of the week" },
     { name: 'posts', title: "Posts" },
     { name: 'albums', title: "Albums" },
     { name: 'photos', title: "Photos" },
@@ -74,8 +74,8 @@ export default class UserView extends PureComponent {
     { columnName: 'name', width: 120 },
     { columnName: 'email', width: 120 },
     { columnName: 'city', width: 120 },
-    { columnName: 'rideInGroup', width: 120 },
-    { columnName: 'dayWeek', width: 120 },
+    { columnName: 'ride_group', width: 120 },
+    { columnName: 'days_week', width: 120 },
     { columnName: 'posts', width: 120 },
     { columnName: 'albums', width: 120 },
     { columnName: 'photos', width: 120 },
@@ -97,6 +97,7 @@ export default class UserView extends PureComponent {
 
   render() {
     const { rows, pageable } = this.props;
+    console.log(this.props)
     return (
       <Fragment>
         <PanelStyles>
@@ -104,6 +105,7 @@ export default class UserView extends PureComponent {
             <IconLevels />
             <Panel.Body>
               <PageTitle title="Users" />
+              <Message messages={this.props.messages} failures={this.props.failures} />
 
               <Row>
                 { rows && rows.length>0 &&
@@ -114,7 +116,7 @@ export default class UserView extends PureComponent {
                       <SearchState defaultValue="" />
                       <IntegratedFiltering />
                       <ActionComponent>
-                        <ActionButton className="hide-hover btn-sm" onClick={this.onEdit} icon='edit' bsStyle="warning" />
+                        {/*<ActionButton className="hide-hover btn-sm" onClick={this.onEdit} icon='edit' bsStyle="warning" />*/}
                         <ActionButton className="hide-hover btn-sm" onClick={this.onDelete} icon='trash' bsStyle="danger" />
                       </ActionComponent>
                       <PagingState
@@ -141,8 +143,6 @@ export default class UserView extends PureComponent {
             </Panel.Body>
           </Panel>
         </PanelStyles>
-
-        <Message messages={this.props.messages} failures={this.props.failures} />
 
         <ConfirmDelete
           show={!!this.props.row.id}

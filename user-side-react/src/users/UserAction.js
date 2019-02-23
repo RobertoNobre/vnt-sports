@@ -1,6 +1,6 @@
 import CRUDAction from '../abstract/CRUDAction';
 
-const Action = CRUDAction('users', '/api/users');
+const Action = CRUDAction('users', '/users');
 
 export const addItem = Action.addItem;
 export const resetItem = Action.resetItem;

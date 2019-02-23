@@ -90,7 +90,7 @@ export default (clazz, endpoint) => ({
     return dispatch => {
       dispatch(request(DELETE_REQUEST(clazz)));
       return API.delete(`${endpoint}/${id}`)
-        .then(resp => dispatch(success(DELETE_SUCCESS(clazz), resp.data)))
+        .then(resp => dispatch(success(DELETE_SUCCESS(clazz), resp)))
         .catch(errors => dispatch(failure(DELETE_FAILURE(clazz), errors)));
     }
   }

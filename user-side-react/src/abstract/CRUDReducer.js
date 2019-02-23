@@ -39,13 +39,13 @@ export default (clazz) => (state = initialState, action) => {
     case SEARCH_SUCCESS(clazz):
       return {
         ...initialState,
-        rows: action.data.data.content,
+        rows: action.data.results,
         messages: action.data.messages,
         pageable: {
-          activePage: action.data.data.pageable.pageNumber,
-          itemsCountPerPage: action.data.data.pageable.pageSize,
-          totalItemsCount: action.data.data.totalElements,
-          pageRangeDisplayed: action.data.data.totalPages,
+          activePage: action.data.pagination.pageNumber,
+          itemsCountPerPage: action.data.pagination.pageSize,
+          totalItemsCount: action.data.pagination.totalElements,
+          pageRangeDisplayed: action.data.pagination.totalPages,
         },
         loading: false,
       }
@@ -134,7 +134,7 @@ export default (clazz) => (state = initialState, action) => {
       return {
         ...initialState,
         row: action.data.data,
-        messages: action.data.messages,
+        messages: ["Deletado com sucesso!"],
         loading: false,
       }
     case DELETE_FAILURE(clazz):
