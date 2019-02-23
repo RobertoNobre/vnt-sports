@@ -105,7 +105,7 @@ class Menu extends PureComponent {
                   <MenuItem eventKey={3.3}>Notifications</MenuItem>
                   <MenuItem eventKey={3.4}>User Preferences</MenuItem>
                   <MenuItem divider />
-                  <MenuItem eventKey={3.4}>Log out</MenuItem>
+                  <MenuItem eventKey={2}>Log out</MenuItem>
                 </NavDropdown>
               </Nav>
             </Navbar.Collapse>

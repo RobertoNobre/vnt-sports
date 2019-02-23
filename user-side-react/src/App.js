@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { routes } from './utils/MenuUtil';
 
 import AnonymousRoute from './commons/AnonymousRoute';
+import ProtectedRoute from './commons/ProtectedRoute';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import $ from 'jquery';
@@ -35,7 +36,11 @@ class App extends PureComponent {
         <Fragment>
           { 
             !!routes && routes.map(route => {
-              return <AnonymousRoute key={route.path} mode={route.mode} exact={route.exact} path={route.path} component={route.component} />
+              if (route.type === 'protected') {
+                return <ProtectedRoute key={route.path} mode={route.mode} exact={route.exact} path={route.path} component={route.component} />
+              } else {
+                return <AnonymousRoute key={route.path} mode={route.mode} exact={route.exact} path={route.path} component={route.component} />
+              }
             }) 
           }
         </Fragment>

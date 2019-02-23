@@ -4,13 +4,19 @@ const bodyParser = require('body-parser');
 const port = 8080; //porta padrão
 const mysql = require('mysql');
 const Promise = require('bluebird');
+const CryptoJS = require('crypto.js');
+var jwt = require('jsonwebtoken');
 
-//configurando o body parser para pegar POSTS mais tarde
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
 var db_config = {    
+    host     : '',
+    //port     : 3306,
+    user     : '',
+    password : '',
+    database : '',
 };
 
 var connection = mysql.createConnection(db_config);
@@ -37,7 +43,7 @@ var handleDisconnect = function() {
         throw err;                                  // server variable configures this)
       }
     });
-  }
+}
 
 // do something when app is closing
 // see http://stackoverflow.com/questions/14031763/doing-a-cleanup-action-just-before-node-js-exits
@@ -127,6 +133,37 @@ router.patch('/clientes/:id', (req, res) =>{
   
     app.delete('/users/:id', function (req, res, next) {
         execSQLQuery('DELETE FROM users WHERE id=' + parseInt(req.params.id), res, db_config);
+    });
+
+    /********************* AUTH *************************/
+    
+    app.post('/auth/signin', function (req, res, next) {
+        var connection = mysql.createConnection(db_config);
+        var queryAsync = Promise.promisify(connection.query.bind(connection));
+        const email = req.body.usernameOrEmail.substring(0,150);
+        const password =  CryptoJS.md5(req.body.password.substring(0,50));
+        
+        queryAsync(
+            `SELECT name from users where email='${email}' and password='${password}'`)
+        .then(function(results) {
+            if(results.length>=1){
+                var responsePayload = {
+                    data: {
+                        name: results[0],
+                        accessToken: jwt.sign({ foo: 'bar' }, 'privateKey'),
+                        tokenType: "Bearer"
+                    },
+                    failures: [],
+                    messages: []
+
+                };
+                res.json(responsePayload);
+            }else{
+                res.status(400).send({data: null, failures: ["Credênciais inválidas"], messages: []});
+            }
+            connection.end();
+        })
+        
     });
   
   module.exports = app;
