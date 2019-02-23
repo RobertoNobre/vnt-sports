@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import {
-        Panel,
         Row,
         Col,
     } from 'react-bootstrap';

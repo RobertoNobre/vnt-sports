@@ -30,9 +30,8 @@ export const routes = [
 
   { type: 'anonymous', mode: "auth", exact: true, path: "/auth/signin", component: LoginContainer },
   { type: 'anonymous', mode: "auth", exact: true, path: "/auth/forgot", component: ForgotContainer },
-  { type: 'anonymous', mode: "auth", exact: true, path: "/auth/reset", component: ResetContainer },
 
   { type: 'protected', mode: "view", exact: true, path: "/users", component: UserContainer },
   { type: 'protected', mode: "edit", exact: true, path: "/users/:id/edit", component: UserContainerForm },
-  { type: 'protected', mode: "new" , exact: true, path: "/users/new", component: UserContainerForm },
+  { type: 'anonymous', mode: "new", exact: true, path: "/register", component: UserContainerForm },
 ];

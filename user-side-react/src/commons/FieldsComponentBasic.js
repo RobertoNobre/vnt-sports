@@ -1,14 +1,8 @@
 import React, { PureComponent, Fragment } from 'react';
 import { Col, Row, FormGroup, ControlLabel } from 'react-bootstrap';
 
-import MaskedInput from 'react-text-mask'
-
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 import { AsyncTypeahead } from 'react-bootstrap-typeahead';
-
-import createAutoCorrectedDatePipe from 'text-mask-addons/dist/createAutoCorrectedDatePipe'
-import { formatUserDate } from '../utils/formatDateUtil';
-const autoCorrectedDatePipe = createAutoCorrectedDatePipe('dd/mm/yyyy')
 
 const sanitizeIsArray = (item, multiple) => {
   if (item === null) {
@@ -31,6 +25,7 @@ const SwitchComponent = ({ item, values, handleChange, }) => {
 
     case 'checkbox':
     return (
+      <label class="container">
         <input 
           type={item.type} 
           style={{marginLeft: '10px'}} 
@@ -44,6 +39,8 @@ const SwitchComponent = ({ item, values, handleChange, }) => {
           } }
           disabled={item.disabled} 
         />
+        <span class="checkmark"></span>
+      </label>
       )
     
     case 'radio': 
@@ -84,47 +81,6 @@ const SwitchComponent = ({ item, values, handleChange, }) => {
         onChange={ item.onChange }
         onSearch={ item.onSearch }
         options={ item.options } />
-
-    case 'date':
-      return <MaskedInput
-        className="form-control"
-        mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
-        pipe={autoCorrectedDatePipe}
-        name={item.name}
-        placeholder="05/06/2003"
-        value={formatUserDate(values[item.name])}
-        onChange={handleChange}
-        disabled={item.disabled} />
-
-      case 'mobile':
-        return <MaskedInput
-        className="form-control"
-        mask={['(', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
-        placeholder="(11) 91234-1234"
-        name={item.name}
-        value={values[item.name]}
-        onChange={handleChange}
-        disabled={item.disabled} />
-
-      case 'phone':
-        return <MaskedInput
-        className="form-control"
-        mask={['(', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
-        placeholder="(11) 1234-1234"
-        name={item.name}
-        value={values[item.name]}
-        onChange={handleChange}
-        disabled={item.disabled} />
-
-      case 'postalcode':
-        return <MaskedInput
-        className="form-control"
-        mask={[/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/]}
-        placeholder="12345-000"
-        name={item.name}
-        value={values[item.name]}
-        onChange={handleChange}
-        disabled={item.disabled} />
 
       case 'textarea':
         return <textarea {...item}

@@ -21,9 +21,6 @@ var db_config = {
 
 var connection = mysql.createConnection(db_config);
 
-var queryAsync = Promise.promisify(connection.query.bind(connection));
-
-
 var handleDisconnect = function() {
     connection = mysql.createConnection(db_config); // Recreate the connection, since
                                                     // the old one cannot be reused.

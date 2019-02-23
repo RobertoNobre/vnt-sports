@@ -8,8 +8,8 @@ export default class PageTitle extends PureComponent{
     render(){
         return(
             <Row>
-              <Col md={1} className='fi'><h1>{this.props.title}</h1></Col> 
-              <Col md={10}>
+              <Col md={2} className='fi'><h1>{this.props.title}</h1></Col> 
+              <Col md={9}>
                 <hr style={{backgroundSize: '4px', borderTop: '4px solid #C7C7C7', borderColor: '#C7C7C7'}} />
               </Col>{/*
               <Col className="text-right" md={3} sm={4}>

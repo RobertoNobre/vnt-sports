@@ -2,7 +2,6 @@ import React, { PureComponent, Fragment } from 'react';
 import {
   Panel,
   Row,
-  Col,
 } from 'react-bootstrap';
 import { PagingState, CustomPaging, SearchState, IntegratedFiltering } from '@devexpress/dx-react-grid';
 import {
@@ -19,9 +18,7 @@ import {
 import ActionComponent, { ActionButton } from '../commons/ActionComponent';
 import { pageSizes } from '../utils/ConstatnsUtil';
 import ConfirmDelete, { handleModalDelete, handleModalClose } from '../commons/ConfirmDelete';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
-import ReactDOM from 'react-dom';
 import PageTitle from './../components/PageTitle';
 import Message from '../commons/Message';
 import IconLevels from '../components/IconLevels';

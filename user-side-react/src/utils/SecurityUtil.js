@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-import moment from 'moment';
 
 const ID_TOKEN = 'id_token';
 const TP_TOKEN = 'tp_token';
