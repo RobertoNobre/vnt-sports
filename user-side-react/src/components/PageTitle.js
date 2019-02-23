@@ -1,10 +1,14 @@
 import React, { PureComponent } from 'react';
+import {
+  Row,
+  Col,
+} from 'react-bootstrap';
 
 export default class PageTitle extends PureComponent{
     render(){
         return(
             <Row>
-              <Col md={1} className='fi'><h1>Users</h1><Loading loading={this.props.loading} /></Col> 
+              <Col md={1} className='fi'><h1>{this.props.title}</h1></Col> 
               <Col md={10}>
                 <hr style={{backgroundSize: '4px', borderTop: '4px solid #C7C7C7', borderColor: '#C7C7C7'}} />
               </Col>{/*
