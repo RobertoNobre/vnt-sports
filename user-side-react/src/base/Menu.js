@@ -101,7 +101,7 @@ class Menu extends PureComponent {
                   title={ <button className='menuu-button'><FontAwesomeIcon className='icon-menu' icon="user-circle"/> Roberto Nobre</button>} 
                   onSelect={this.onSelectClick}>
                   <MenuItem eventKey={1}>Friends List</MenuItem>
-                  <MenuItem eventKey={3.2}>Saved Items</MenuItem>
+                  <MenuItem eventKey={3}>Saved Items</MenuItem>
                   <MenuItem eventKey={3.3}>Notifications</MenuItem>
                   <MenuItem eventKey={3.4}>User Preferences</MenuItem>
                   <MenuItem divider />

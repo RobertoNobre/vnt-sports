@@ -64,7 +64,7 @@ export default (clazz) => (state = initialState, action) => {
     case GET_SUCCESS(clazz):
       return {
         ...initialState,
-        row: action.data.data,
+        row: action.data.results,
         messages: action.data.messages,
         loading: false,
       }

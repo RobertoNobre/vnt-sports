@@ -56,7 +56,6 @@ class ForgotView extends PureComponent {
         <div className="container wrapper">
           <ForgotBox>
             <div className="login">
-              <Form>
                 <div className="form-group">
                   <fieldset>
                     <div className='text-center' style={{ margin: '10px 0'}}>
@@ -64,7 +63,7 @@ class ForgotView extends PureComponent {
                     </div>
 
                     <FormGroup>
-                      <ControlLabel>Usuário</ControlLabel>
+                      <ControlLabel>User or E-mail</ControlLabel>
                       <Field className="form-control" name="usernameOrEmail" />
                     </FormGroup>
 
@@ -72,8 +71,9 @@ class ForgotView extends PureComponent {
                       <Button
                         type="submit" 
                         className="btn btn-primary btn-block"
-                        style={{marginTop: '35px'}}>
-                        Recuperar
+                        style={{marginTop: '35px'}}
+                        onClick={this.handleLogin}>
+                        Send my password in my Mail!
                       </Button>  
                     </div>
                     <div className="form-group text-center" style={{margin: '20px'}}>
@@ -82,14 +82,13 @@ class ForgotView extends PureComponent {
                         style={{color: '#000'}}
                         onClick={this.handleLogin}
                         >
-                        Ir para tela de Login
+                        Back to login page
                       </Button>
                     </div>
                     <div className='clearfix' />
                     <Message failures={this.props.failures} messages={this.props.errors} />
                   </fieldset>
                 </div>
-              </Form>
             </div>
           </ForgotBox>
         </div>

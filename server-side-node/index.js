@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 
 
 var db_config = {    
-    host     : '',
+    host     : 'u',
     //port     : 3306,
     user     : '',
     password : '',
@@ -71,11 +71,8 @@ router.patch('/clientes/:id', (req, res) =>{
         var connection = mysql.createConnection(db_config);
         var queryAsync = Promise.promisify(connection.query.bind(connection));
 
-        var numRows;
-        var queryPagination;
         var numPerPage = parseInt(req.query.size, 10) || 1;
         var page = parseInt(req.query.page, 10) || 0;
-        var numPages;
         var skip = page * numPerPage;
         // Here we compute the LIMIT parameter for MySQL query
         var limit = skip + ',' + numPerPage;
@@ -86,11 +83,11 @@ router.patch('/clientes/:id', (req, res) =>{
         console.log('number of pages:', totalPages);
         })
         .then(() => queryAsync(
-            'SELECT users.*, COUNT(albums.id) albums, COUNT(posts.id) posts, COUNT(photos.id) photos '+
-            'FROM users ' +
-            'LEFT JOIN albums ON albums.id_aluno = users.id '+ 
-            'LEFT JOIN photos ON photos.id_album = albums.id '+ 
-            'LEFT JOIN posts ON posts.id_aluno = users.id '+ 
+            'SELECT users.*, COUNT(albums.id) albums, '+
+            '(SELECT COUNT(posts.id) FROM posts WHERE posts.id_aluno = users.id) posts, '+
+            '(SELECT COUNT(photos.id) FROM photos WHERE  albums.id_aluno = users.id) photos '+
+            'FROM users '+
+            'LEFT JOIN albums ON albums.id_aluno = users.id '+
             'GROUP BY users.id LIMIT ' + limit))
         .then(function(results) {
             var responsePayload = {
@@ -183,13 +180,12 @@ router.patch('/clientes/:id', (req, res) =>{
         const password =  CryptoJS.md5(req.body.password.substring(0,50));
         
         queryAsync(
-            `SELECT name from users where email='${email}' and password='${password}'`)
+            `SELECT id from users where email='${email}' and password='${password}'`)
         .then(function(results) {
             if(results.length>=1){
                 var responsePayload = {
                     data: {
-                        name: results[0],
-                        accessToken: jwt.sign({ foo: 'bar' }, 'privateKey'),
+                        accessToken: jwt.sign({ id: results[0] }, 'privateKey'),
                         tokenType: "Bearer"
                     },
                     failures: [],
@@ -203,6 +199,50 @@ router.patch('/clientes/:id', (req, res) =>{
             connection.end();
         })
         
+    });
+
+    /************ ALBUMS/PHOTOS*******/
+    app.get('/albums/:id', function(req, res, next) {
+        const id = parseInt(req.params.id);
+        var connection = mysql.createConnection(db_config);
+        var queryAsync = Promise.promisify(connection.query.bind(connection));
+
+        queryAsync(
+            'SELECT albums.title titleAlbum, photos.title titlePhoto from albums '+
+            'INNER JOIN photos ON albums.id = photos.id_album '+ 
+            'WHERE albums.id_aluno = '+ id)
+        .then(function(results) {
+            var responsePayload = {
+                results: results
+            };
+            res.json(responsePayload);
+            connection.end();
+        })
+        .catch(function(err) {
+            console.error(err);
+            res.json({ err: err });
+        });
+    });
+    /************ POSTS *******/
+    app.get('/posts/:id', function(req, res, next) {
+        const id = parseInt(req.params.id);
+        var connection = mysql.createConnection(db_config);
+        var queryAsync = Promise.promisify(connection.query.bind(connection));
+
+        queryAsync(
+            'SELECT title, text from posts '+
+            'WHERE posts.id_aluno = '+ id)
+        .then(function(results) {
+            var responsePayload = {
+                results: results
+            };
+            res.json(responsePayload);
+            connection.end();
+        })
+        .catch(function(err) {
+            console.error(err);
+            res.json({ err: err });
+        });
     });
   
   module.exports = app;

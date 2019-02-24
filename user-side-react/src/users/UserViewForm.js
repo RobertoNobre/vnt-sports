@@ -196,6 +196,18 @@ const PanelStyles = styled.div`
   .col-md-1 {
     width: 7%;
   }
+
+  .col2, .col3, .col4, .col5, .col6, .col7{
+    padding-top: 50px;
+  }
+
+  .check2, .check3, .check4, .check5, .check6, .check7{
+    display: none;
+  }
+
+  .labelsun {
+    margin-top: 50px 
+  }
   `;
   
 class UserViewForm extends PureComponent {
@@ -211,8 +223,8 @@ class UserViewForm extends PureComponent {
       { type: 'radio', label: 'Ride in group?', name: 'ride_group', size: { md: 5 }, options: RideInGroupCombo },
     ],
     [
-      { type: 'email', label: 'E-mail',  name: 'email', size: { md: 5 }},
-      { type: 'checkbox', label: 'Sun', name: 'sun', size: { md: 1 }},
+      { type: 'email', label: 'E-mail', name: 'email', size: { md: 5 }},
+      { type: 'checkbox', label: 'Sun', name: 'sun', className: 'ok', size: { md: 1 }},
       { type: 'checkbox', label: 'Mon', name: 'mon', size: { md: 1 }},
       { type: 'checkbox', label: 'Tue', name: 'tue', size: { md: 1 }},
       { type: 'checkbox', label: 'Wed', name: 'wed', size: { md: 1 }},

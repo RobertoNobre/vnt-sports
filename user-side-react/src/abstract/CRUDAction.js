@@ -36,7 +36,7 @@ export default (clazz, endpoint) => ({
    */
   search: (pageNumber, pageSize, search) => {
     pageNumber = pageNumber || 0;
-    pageSize = pageSize || 10;
+    pageSize = pageSize || 100;
     search = search || '';
 
     return dispatch => {
