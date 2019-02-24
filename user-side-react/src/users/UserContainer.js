@@ -4,10 +4,11 @@ import { connect } from 'react-redux';
 
 import UserView from './UserView';
 import { addItem, resetItem, searchUsers, deleteUser } from './UserAction';
+import jwt from 'jsonwebtoken';
 
 class UserContainer extends PureComponent {
   componentDidMount = () => {
-    this.props.searchUsers();
+    this.props.searchUsers(0, 100, jwt.decode(localStorage.getItem('id_token')).id.id);
   }
 
   render() {

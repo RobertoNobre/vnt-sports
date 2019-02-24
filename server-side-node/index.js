@@ -73,6 +73,7 @@ router.patch('/clientes/:id', (req, res) =>{
 
         var numPerPage = parseInt(req.query.size, 10) || 1;
         var page = parseInt(req.query.page, 10) || 0;
+        var search = parseInt(req.query.search);
         var skip = page * numPerPage;
         // Here we compute the LIMIT parameter for MySQL query
         var limit = skip + ',' + numPerPage;
@@ -85,10 +86,11 @@ router.patch('/clientes/:id', (req, res) =>{
         .then(() => queryAsync(
             'SELECT users.*, COUNT(albums.id) albums, '+
             '(SELECT COUNT(posts.id) FROM posts WHERE posts.id_aluno = users.id) posts, '+
-            '(SELECT COUNT(photos.id) FROM photos WHERE  albums.id_aluno = users.id) photos '+
+            '(SELECT COUNT(photos.id) FROM photos WHERE albums.id_aluno = users.id AND photos.id_album = albums.id) photos '+
             'FROM users '+
             'LEFT JOIN albums ON albums.id_aluno = users.id '+
-            'GROUP BY users.id LIMIT ' + limit))
+            'WHERE users.added_by = ' + search +
+            ' GROUP BY users.id LIMIT ' + limit))
         .then(function(results) {
             var responsePayload = {
             results: results
