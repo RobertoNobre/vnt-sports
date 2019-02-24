@@ -21,8 +21,6 @@ import {
   TableGroupRow,
 } from '@devexpress/dx-react-grid-bootstrap3';
 
-import ActionComponent, { ActionButton } from '../commons/ActionComponent';
-import ConfirmDelete, { handleModalDelete, handleModalClose } from '../commons/ConfirmDelete';
 import styled from 'styled-components';
 import PageTitle from '../components/PageTitle';
 

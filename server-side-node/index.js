@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 
 
 var db_config = {    
-    host     : 'u',
+    host     : '',
     //port     : 3306,
     user     : '',
     password : '',
@@ -123,7 +123,7 @@ router.patch('/clientes/:id', (req, res) =>{
             const city = req.body.city.substring(0,50);
             const ride_group = req.body.ride_group.substring(0,50);
             const email = req.body.email.substring(0,50);
-            
+            const added_by = parseInt(req.body.added_by);
             const daysWeek = `${req.body.sun == true ? 'Sun ': ''}`+
             `${req.body.mon == true ? 'Mon ': ''}`+
             `${req.body.tue == true ? 'Tue ': ''}`+
@@ -132,13 +132,19 @@ router.patch('/clientes/:id', (req, res) =>{
             `${req.body.fri == true ? 'Fri ': ''}`+
             `${req.body.sat == true ? 'Sat ': ''}`+
             ``;
-            const password = CryptoJS.md5(req.body.password.substring(0,50));
-            
+
+            var password = '';
+            if(req.body.password !== ""){
+                password = CryptoJS.md5(req.body.password.substring(0,50))
+            }else{
+                password = ''
+            }
+
             queryAsync(
                 `INSERT INTO users(
-                    name, username, email, password, city, ride_group, days_week
+                    name, username, email, password, city, ride_group, days_week, added_by
                 ) VALUES ('${name}','${username}','${email}','${password}',
-                    '${city}','${ride_group}','${daysWeek}')`)
+                    '${city}','${ride_group}','${daysWeek}','${added_by}')`)
             .then(function(results) {
                 if(results){
                     res.status(201).send({
@@ -160,9 +166,10 @@ router.patch('/clientes/:id', (req, res) =>{
             });
         } catch (error) {
             res.status(400).send({
-                data: null, failures: ["Verique o preenchimento dos campos Novamente"], messages: []
+                data: null, 
+                failures: ["Verique o preenchimento dos campos Novamente"], 
+                messages: []
             });
-            
         }
         
     });

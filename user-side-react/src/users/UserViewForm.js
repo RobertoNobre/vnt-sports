@@ -25,6 +25,8 @@ const initialState = {
     fri: false,
     sat: false,
     ride_group: RideInGroup.ALWAYS.name,
+    password: '',
+    added_by: 0
   }
 }
 

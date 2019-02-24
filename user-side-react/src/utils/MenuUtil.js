@@ -4,6 +4,7 @@ import UserContainerForm from '../users/UserContainerForm';
 import LoginContainer from '../auth/LoginContainer';
 import ForgotContainer from '../auth/ForgotContainer';
 import ItemContainer from '../items/ItemContainer';
+import NewUserContainerForm from '../users/NewUserContainerForm';
 
 import { logout } from './SecurityUtil';
 
@@ -18,6 +19,9 @@ export const onSelect = (key, history) => {
       break;
     case 3:
       history.push('/items'); 
+      break;
+    case 5:
+      history.push('/new-user'); 
       break;
     case 4:
       history.push('/');
@@ -38,4 +42,5 @@ export const routes = [
   { type: 'protected', mode: "edit", exact: true, path: "/users/:id/edit", component: UserContainerForm },
   { type: 'anonymous', mode: "new", exact: true, path: "/register", component: UserContainerForm },
   { type: 'protected', mode: "view", exact: true, path: "/items", component: ItemContainer },
+  { type: 'protected', mode: "view", exact: true, path: "/new-user", component: NewUserContainerForm },
 ];

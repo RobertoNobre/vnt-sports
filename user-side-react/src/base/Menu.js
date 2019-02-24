@@ -102,6 +102,7 @@ class Menu extends PureComponent {
                   onSelect={this.onSelectClick}>
                   <MenuItem eventKey={1}>Friends List</MenuItem>
                   <MenuItem eventKey={3}>Saved Items</MenuItem>
+                  <MenuItem eventKey={5}>Add New User</MenuItem>
                   <MenuItem eventKey={3.3}>Notifications</MenuItem>
                   <MenuItem eventKey={3.4}>User Preferences</MenuItem>
                   <MenuItem divider />

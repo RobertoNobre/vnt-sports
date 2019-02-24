@@ -123,7 +123,7 @@ export default class FieldsComponent extends PureComponent {
                       return (<Col key={`sep-${item.name}-${index}`} md={12}><hr></hr></Col>)
                     }
                     return (<Col className={`col${index}`} key={`others-${item.name}`} md={(!!item.size && item.size.md) || 4}>
-                    {item.type === 'checkbox'?<p style={{position: 'absolute', fontWeight: 'bold'}} class={`check${index}`}>Days of the week</p>: ''}
+                    {item.type === 'checkbox'?<p style={{position: 'absolute', fontWeight: 'bold'}} className={`check${index}`}>Days of the week</p>: ''}
                         <FormGroup className={`gambi${index}`} validationState={null}>
                           {(item.type !== 'table') && <ControlLabel className={`label${item.name}`}>{item.label}</ControlLabel>}
                           <SwitchComponent  {...item} item={item} values={values} handleChange={handleChange} />

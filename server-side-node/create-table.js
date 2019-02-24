@@ -12,10 +12,11 @@ function createTable(conn){
     "id int NOT NULL AUTO_INCREMENT,\n"+
     "name varchar(150) NOT NULL,\n"+
     "email varchar(50) NOT NULL,\n"+
-    "password varchar(50) NOT NULL,\n"+
+    "password varchar(50) NULL,\n"+
     "city varchar(50) NOT NULL,\n"+
     "ride_group varchar(50) NOT NULL,\n"+
     "days_week varchar(50) NOT NULL,\n"+
+    "added_by int NULL,\n"+
     "PRIMARY KEY (ID));";
     
     const sqlPosts = "CREATE TABLE IF NOT EXISTS posts (\n"+
