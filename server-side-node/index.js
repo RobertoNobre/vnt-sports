@@ -117,15 +117,57 @@ router.patch('/clientes/:id', (req, res) =>{
     });
 
     app.post('/users', function (req, res, next) {
-        const name = req.body.name.substring(0,150);
-        const email = req.body.email.substring(0,50);
-        const city = req.body.city.substring(0,50);
-        const ride_group = req.body.ride_group.substring(0,50);
-        const days_week = req.body.days_week.substring(0,50);
-
-        execSQLQuery(`INSERT INTO users
-        (name, email, city, ride_group, days_week) 
-        VALUES('${name}','${email}', '${city}', '${ride_group}', '${days_week}')`, res);
+        var connection = mysql.createConnection(db_config);
+        var queryAsync = Promise.promisify(connection.query.bind(connection));
+        
+        try {
+            const username = req.body.username.substring(0,150);
+            const name = req.body.name.substring(0,50);
+            const city = req.body.city.substring(0,50);
+            const ride_group = req.body.ride_group.substring(0,50);
+            const email = req.body.email.substring(0,50);
+            
+            const daysWeek = `${req.body.sun == true ? 'Sun ': ''}`+
+            `${req.body.mon == true ? 'Mon ': ''}`+
+            `${req.body.tue == true ? 'Tue ': ''}`+
+            `${req.body.wed == true ? 'Wed ': ''}`+
+            `${req.body.thu == true ? 'Thu ': ''}`+
+            `${req.body.fri == true ? 'Fri ': ''}`+
+            `${req.body.sat == true ? 'Sat ': ''}`+
+            ``;
+            const password = CryptoJS.md5(req.body.password.substring(0,50));
+            
+            queryAsync(
+                `INSERT INTO users(
+                    name, username, email, password, city, ride_group, days_week
+                ) VALUES ('${name}','${username}','${email}','${password}',
+                    '${city}','${ride_group}','${daysWeek}')`)
+            .then(function(results) {
+                if(results){
+                    res.status(201).send({
+                        results,
+                        data: null, messages: ['Registrado com sucesso.']
+                    });
+                }
+                connection.end();
+            })
+            .catch(function(err) {
+                var msg = err.sqlMessage;
+                if(msg.substring(0, 9) == 'Duplicate'){
+                    msg= 'Email já existe';
+                }
+                res.status(400).send({
+                    data: null, failures: [msg], messages: []
+                });
+                connection.end();
+            });
+        } catch (error) {
+            res.status(400).send({
+                data: null, failures: ["Verique o preenchimento dos campos Novamente"], messages: []
+            });
+            
+        }
+        
     });
   
     app.delete('/users/:id', function (req, res, next) {

@@ -3,7 +3,6 @@ import UserContainer from '../users/UserContainer';
 import UserContainerForm from '../users/UserContainerForm';
 import LoginContainer from '../auth/LoginContainer';
 import ForgotContainer from '../auth/ForgotContainer';
-import ResetContainer from '../auth/ResetContainer';
 
 import { logout } from './SecurityUtil';
 

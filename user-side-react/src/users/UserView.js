@@ -52,7 +52,7 @@ th { background-color: white; }
 } `;
 
 export default class UserView extends PureComponent {
-  
+
   columns = [
     { name: 'username', title: "Username" },
     { name: 'name', title: "Name" },
@@ -101,7 +101,7 @@ export default class UserView extends PureComponent {
           <Panel>
             <IconLevels />
             <Panel.Body>
-              <PageTitle title="Users" />
+              <PageTitle className='fi' title="Users" />
               <Message messages={this.props.messages} failures={this.props.failures} />
 
               <Row>
@@ -110,7 +110,7 @@ export default class UserView extends PureComponent {
                     <Grid
                       rows={rows}
                       columns={this.columns}>
-                      <SearchState defaultValue="" />
+                      <SearchState id='test' defaultValue="" />
                       <IntegratedFiltering />
                       <ActionComponent>
                         {/*<ActionButton className="hide-hover btn-sm" onClick={this.onEdit} icon='edit' bsStyle="warning" />*/}
@@ -135,6 +135,7 @@ export default class UserView extends PureComponent {
                       <SearchPanel />
                     </Grid>
                   </Fragment>
+                  
                 }
               </Row>
             </Panel.Body>

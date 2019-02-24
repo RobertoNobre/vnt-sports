@@ -10,15 +10,30 @@ import PageTitle from './../components/PageTitle';
 import RideInGroup, { RideInGroupCombo } from '../enums/RideInGroup'
 import FieldsComponent from '../commons/FieldsComponentBasic';
 import styled from 'styled-components';
+import IconLevelsRegister from '../components/IconLevelsRegister';
 
 const initialState = {
   row: {
-    status: RideInGroup.ALWAYS.name,
+    username: '',
+    name: '',
+    city: '',
+    sun: false,
+    tue: false,
+    mon: false,
+    thu: false,
+    wed: false,
+    fri: false,
+    sat: false,
+    ride_group: RideInGroup.ALWAYS.name,
   }
 }
 
 const PanelStyles = styled.div`
+  .panel-default {
+    border: none;
+  }
   .btn-success { background-color: #1AB394; }
+  .btn-success:hover { background-color: #1AB394; }
   .form-control:focus {
     border-color: #1AB394;
     outline: 0;
@@ -58,8 +73,8 @@ const PanelStyles = styled.div`
     left: 0;
     height: 25px;
     width: 25px;
-    background-color: white;
     border-radius: 5px;
+    background-color: white;
     border: solid 1px #1AB394;
   }
   
@@ -96,7 +111,92 @@ const PanelStyles = styled.div`
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
-  }`;
+  }
+  h3 {
+    margin-top: 0px;
+    margin-bottom: 10px;
+    color: #1AB394;
+  }
+  .icon { color: #1AB394; }
+  body { padding-top: 40px }
+
+  /*** radio ***/
+  .container-radio {
+    display: table-cell;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    padding-right: 35px;
+  }
+  
+  /* Hide the browser's default radio button */
+  .container-radio input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  /* Create a custom radio button */
+  .checkmark-radio {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    background-color: white;
+    border: solid 1px #1AB394;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .container-radio:hover input ~ .checkmark-radio {
+    background-color: white;
+  }
+  
+  /* When the radio button is checked, add a blue background */
+  .container-radio input:checked ~ .checkmark-radio {
+    background-color: white;
+  }
+  
+  /* Create the indicator (the dot/circle - hidden when not checked) */
+  .checkmark-radio:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the indicator (dot/circle) when checked */
+  .container-radio input:checked ~ .checkmark-radio:after {
+    display: block;
+  }
+  
+  /* Style the indicator (dot/circle) */
+  .container-radio .checkmark-radio:after {
+    top: 7px;
+    left: 8px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: black;
+  }
+
+  .btn-default {
+    color: #333;
+    background-color: #ccc;;
+    border: none;
+  }
+  .btn-default:hover{
+    background-color: #ccc;
+  }
+  .col-md-1 {
+    width: 7%;
+  }
+  `;
   
 class UserViewForm extends PureComponent {
   state = initialState;
@@ -112,7 +212,7 @@ class UserViewForm extends PureComponent {
     ],
     [
       { type: 'email', label: 'E-mail',  name: 'email', size: { md: 5 }},
-      { type: 'checkbox', title: 'Days of the week', label: 'Sun', name: 'sun', size: { md: 1 }},
+      { type: 'checkbox', label: 'Sun', name: 'sun', size: { md: 1 }},
       { type: 'checkbox', label: 'Mon', name: 'mon', size: { md: 1 }},
       { type: 'checkbox', label: 'Tue', name: 'tue', size: { md: 1 }},
       { type: 'checkbox', label: 'Wed', name: 'wed', size: { md: 1 }},
@@ -120,6 +220,9 @@ class UserViewForm extends PureComponent {
       { type: 'checkbox', label: 'Fri', name: 'fri', size: { md: 1 }},
       { type: 'checkbox', label: 'Sat', name: 'sat', size: { md: 1 }},
     ],
+    [
+      { type: 'password', label: 'Password', name: 'password', size: { md: 5 }}
+    ]
   ];
 
   // general handle change
@@ -131,10 +234,11 @@ class UserViewForm extends PureComponent {
     if (!!isEdit) {
       onPut(this.state.row.id, this.state.row);
     } else {
-      const { errors } = await onPost(this.state.row);
-      if (!errors) {
-        this.setState({ ...this.initialState });
+      await onPost(this.state.row);
+      if (this.props.failures.length === 0) {
+        this.props.history.push('/auth/signin')
       }
+      console.log(this.props)
     }
   }
 
@@ -152,6 +256,10 @@ class UserViewForm extends PureComponent {
           <Panel>
             <Panel.Body>
               <PageTitle title={ isEdit ? 'Alterar' : 'Registration' } />
+              <IconLevelsRegister />
+              <Col mdOffset={1} md={10}>
+                <hr style={{backgroundSize: '4px', borderTop: '4px solid #C7C7C7', borderColor: '#C7C7C7'}} />
+              </Col>
               <Col  mdOffset={1}>
               {
                 this.fields() && 

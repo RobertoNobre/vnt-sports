@@ -25,7 +25,7 @@ const SwitchComponent = ({ item, values, handleChange, }) => {
 
     case 'checkbox':
     return (
-      <label class="container">
+      <label className="container">
         <input 
           type={item.type} 
           style={{marginLeft: '10px'}} 
@@ -39,7 +39,7 @@ const SwitchComponent = ({ item, values, handleChange, }) => {
           } }
           disabled={item.disabled} 
         />
-        <span class="checkmark"></span>
+        <span className="checkmark"></span>
       </label>
       )
     
@@ -47,6 +47,7 @@ const SwitchComponent = ({ item, values, handleChange, }) => {
       return (
         !!item.options && item.options.map(opt => (
             <Fragment key={`frg-${opt.id}`}>
+            <label className="container-radio">
               <input
                 key={`inp-${opt.id}`}
                 style={{margin: '0 5px 0 20px'}} 
@@ -56,6 +57,8 @@ const SwitchComponent = ({ item, values, handleChange, }) => {
                 checked={values[item.name] === opt.name}
                 onChange={handleChange}
               />{opt.value}
+              <span className="checkmark-radio"></span>
+            </label>
             </Fragment>)
         )
       )

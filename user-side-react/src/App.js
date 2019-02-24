@@ -16,7 +16,9 @@ import {
   faHome, 
   faPuzzlePiece, 
   faTrophy, 
-  faMapSigns } from '@fortawesome/free-solid-svg-icons'
+  faMapSigns,
+  faHeartbeat } from '@fortawesome/free-solid-svg-icons';
+import { faLifeRing, faSmile } from '@fortawesome/free-regular-svg-icons';
 
 
 library.add(faUserCircle)
@@ -25,6 +27,9 @@ library.add(faHome)
 library.add(faPuzzlePiece)
 library.add(faTrophy)
 library.add(faMapSigns)
+library.add(faLifeRing)
+library.add(faHeartbeat)
+library.add(faSmile)
 
 window.jQuery = window.$ = $;
 require('bootstrap');
