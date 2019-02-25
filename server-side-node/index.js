@@ -73,11 +73,8 @@ app.get('/users', function(req, res, next) {
         console.log('number of pages:', totalPages);
     })
     .then(() => queryAsync(
-        'SELECT users.*, COUNT(albums.id) albums, '+
-        '(SELECT COUNT(posts.id) FROM posts WHERE posts.id_aluno = users.id) posts, '+
-        '(SELECT COUNT(photos.id) FROM photos WHERE albums.id_aluno = users.id AND photos.id_album = albums.id) photos '+
+        'SELECT users.* '+
         'FROM users '+
-        'LEFT JOIN albums ON albums.id_aluno = users.id '+
         'WHERE users.id != '+ search +
         ' GROUP BY users.id LIMIT ' + limit))
     .then(function(results) {
@@ -197,51 +194,6 @@ app.post('/auth/signin', function (req, res, next) {
         }
         connection.end();
     })
-});
-
-    /************ ALBUMS/PHOTOS*******/
-app.get('/albums/:id', function(req, res, next) {
-    const id = parseInt(req.params.id);
-    var connection = mysql.createConnection(db_config);
-    var queryAsync = Promise.promisify(connection.query.bind(connection));
-
-    queryAsync(
-        'SELECT albums.title titleAlbum, photos.title titlePhoto from albums '+
-        'INNER JOIN photos ON albums.id = photos.id_album '+ 
-        'WHERE albums.id_aluno = '+ id)
-    .then(function(results) {
-        var responsePayload = {
-            results: results
-        };
-        res.json(responsePayload);
-        connection.end();
-    })
-    .catch(function(err) {
-        console.error(err);
-        res.json({ err: err });
-    });
-});
-
-    /************ POSTS *******/
-app.get('/posts/:id', function(req, res, next) {
-    const id = parseInt(req.params.id);
-    var connection = mysql.createConnection(db_config);
-    var queryAsync = Promise.promisify(connection.query.bind(connection));
-
-    queryAsync(
-        'SELECT title, text from posts '+
-        'WHERE posts.id_aluno = '+ id)
-    .then(function(results) {
-        var responsePayload = {
-            results: results
-        };
-        res.json(responsePayload);
-        connection.end();
-    })
-    .catch(function(err) {
-        console.error(err);
-        res.json({ err: err });
-    });
 });
   
 module.exports = app;
