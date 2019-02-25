@@ -14,6 +14,7 @@ import {
   VirtualTable,
   TableColumnResizing
 } from '@devexpress/dx-react-grid-bootstrap3';
+import jwt from 'jsonwebtoken';
 
 import ActionComponent, { ActionButton } from '../commons/ActionComponent';
 import { pageSizes } from '../utils/ConstatnsUtil';
@@ -84,11 +85,11 @@ export default class UserView extends PureComponent {
   onDelete = (id) => (this.props.onAdd('row', { id }));
 
   onCurrentPageChange = (page) => {
-    this.props.onSearch( page, this.props.pageable.itemsCountPerPage, '' );
+    this.props.onSearch( page, this.props.pageable.itemsCountPerPage, jwt.decode(localStorage.getItem('id_token')).id.id );
   }
 
   onChangePageSize = (pageSize) => {
-    this.props.onSearch( 0, pageSize, '' );
+    this.props.onSearch( 0, pageSize, jwt.decode(localStorage.getItem('id_token')).id.id );
   }
 
 
@@ -105,7 +106,7 @@ export default class UserView extends PureComponent {
               <Message messages={this.props.messages} failures={this.props.failures} />
 
               <Row>
-                { rows && rows.length>0 &&
+                { rows && rows.length>0 ?
                   <Fragment>
                     <Grid
                       rows={rows}
@@ -135,7 +136,7 @@ export default class UserView extends PureComponent {
                       <SearchPanel />
                     </Grid>
                   </Fragment>
-                  
+                  : <h3 style={{paddingLeft: '80px', paddingTop: '20px'}}>Adicione contatos à sua lista! ;)</h3>
                 }
               </Row>
             </Panel.Body>

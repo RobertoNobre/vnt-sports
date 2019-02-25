@@ -189,7 +189,7 @@ router.patch('/clientes/:id', (req, res) =>{
         const password =  CryptoJS.md5(req.body.password.substring(0,50));
         
         queryAsync(
-            `SELECT id from users where email='${email}' and password='${password}'`)
+            `SELECT id, name from users where email='${email}' and password='${password}'`)
         .then(function(results) {
             if(results.length>=1){
                 var responsePayload = {

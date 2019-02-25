@@ -11,6 +11,7 @@ import { onSelect } from '../utils/MenuUtil';
 import styled from 'styled-components';
 import logo from '../assets/img/logo.png'; 
 import Breadcrumbs from './Breadcrumbs';
+import jwt from 'jsonwebtoken';
 
 const MenuDesign = styled.div`  
   .navbar {
@@ -98,7 +99,11 @@ class Menu extends PureComponent {
                 <NavDropdown 
                   id="reports" 
                   eventKey={3} 
-                  title={ <button className='menuu-button'><FontAwesomeIcon className='icon-menu' icon="user-circle"/> Roberto Nobre</button>} 
+                  title={
+                     <button className='menuu-button'>
+                      <FontAwesomeIcon className='icon-menu' icon="user-circle"/>
+                      {jwt.decode(localStorage.getItem('id_token'), {complete: true}).payload.id.name}
+                     </button>} 
                   onSelect={this.onSelectClick}>
                   <MenuItem eventKey={1}>Friends List</MenuItem>
                   <MenuItem eventKey={3}>Saved Items</MenuItem>

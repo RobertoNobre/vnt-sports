@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Button, FormGroup, ControlLabel } from 'react-bootstrap';
-import { withFormik, Form, Field } from 'formik';
+import { withFormik, Field } from 'formik';
 import styled from 'styled-components';
 import logo from '../assets/img/logo.png';
 
