@@ -58,30 +58,66 @@ export default class UserView extends PureComponent {
   AlbumsColumns = [
     { name: 'titlePhoto', title: "Photo" },
     { name: 'titleAlbum', title: "Album" },
-    { name: 'actions', title: "#" },
   ];
 
   PostsColumns = [
     { name: 'title', title: "Title" },
     { name: 'text', title: "Text" },
-    { name: 'actions', title: "#" },
   ];
   
   defaultColumnWidthsAlbums = [
-    { columnName: 'titlePhoto', width: 120 },
-    { columnName: 'titleAlbum', width: 120 },
-    { columnName: 'actions', width: 120 },
+    { columnName: 'titlePhoto', width: 300 },
+    { columnName: 'titleAlbum', width: 300 },
   ];
 
   defaultColumnWidthsPosts = [
-    { columnName: 'title', width: 120 },
-    { columnName: 'text', width: 120 },
-    { columnName: 'actions', width: 120 },
+    { columnName: 'title', width: 300 },
+    { columnName: 'text', width: 300 },
   ];
 
   render() {
-    console.log(this.props)
-    const { albums, posts } = this.props;
+    const albums = [
+      { titlePhoto: 'Foto 1', titleAlbum: 'Album 1'  },
+      { titlePhoto: 'Foto 2', titleAlbum: 'Album 1'  },
+      { titlePhoto: 'Foto 3', titleAlbum: 'Album 1'  },
+      { titlePhoto: 'Foto 4', titleAlbum: 'Album 1'  },
+      { titlePhoto: 'Foto 5', titleAlbum: 'Album 1'  },
+      { titlePhoto: 'Foto 6', titleAlbum: 'Album 1'  },
+      { titlePhoto: 'Foto 1', titleAlbum: 'Album 2'  },
+      { titlePhoto: 'Foto 2', titleAlbum: 'Album 2'  },
+      { titlePhoto: 'Foto 3', titleAlbum: 'Album 2'  },
+      { titlePhoto: 'Foto 4', titleAlbum: 'Album 2'  },
+      { titlePhoto: 'Foto 5', titleAlbum: 'Album 2'  },
+      { titlePhoto: 'Foto 6', titleAlbum: 'Album 2'  },
+      { titlePhoto: 'Foto 1', titleAlbum: 'Album 3'  },
+      { titlePhoto: 'Foto 2', titleAlbum: 'Album 3'  },
+      { titlePhoto: 'Foto 3', titleAlbum: 'Album 3'  },
+      { titlePhoto: 'Foto 4', titleAlbum: 'Album 3'  },
+      { titlePhoto: 'Foto 5', titleAlbum: 'Album 3'  },
+      { titlePhoto: 'Foto 6', titleAlbum: 'Album 3'  },
+    ]    
+    
+    const posts = [
+      { title: 'Post 1', text: 'Post Text with a unnormal content 1'  },
+      { title: 'Post 2', text: 'Post Text with a unnormal content 2'  },
+      { title: 'Post 3', text: 'Post Text with a unnormal content 3'  },
+      { title: 'Post 4', text: 'Post Text with a unnormal content 4'  },
+      { title: 'Post 5', text: 'Post Text with a unnormal content 5'  },
+      { title: 'Post 6', text: 'Post Text with a unnormal content 6'  },
+      { title: 'Post 7', text: 'Post Text with a unnormal content 7'  },
+      { title: 'Post 8', text: 'Post Text with a unnormal content 8'  },
+      { title: 'Post 9', text: 'Post Text with a unnormal content 9'  },
+      { title: 'Post 10', text: 'Post Text with a unnormal content 10'  },
+      { title: 'Post 11', text: 'Post Text with a unnormal content 11'  },
+      { title: 'Post 12', text: 'Post Text with a unnormal content 12'  },
+      { title: 'Post 13', text: 'Post Text with a unnormal content 13'  },
+      { title: 'Post 14', text: 'Post Text with a unnormal content 14'  },
+      { title: 'Post 15', text: 'Post Text with a unnormal content 15'  },
+      { title: 'Post 16', text: 'Post Text with a unnormal content 16'  },
+      { title: 'Post 17', text: 'Post Text with a unnormal content 17'  },
+      { title: 'Post 18', text: 'Post Text with a unnormal content 18'  },
+    ] 
+    
     return (
       <Fragment>
         <PanelStyles>

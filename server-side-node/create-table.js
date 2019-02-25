@@ -1,16 +1,17 @@
 const mysql      = require('mysql');
 const connection = mysql.createConnection({
   host     : '',
- //port     : 3306,
   user     : '',
   password : '',
   database : ''
+  //port     : 3306,
 });
 
 function createTable(conn){
     const sqlUsers = "CREATE TABLE IF NOT EXISTS users (\n"+
     "id int NOT NULL AUTO_INCREMENT,\n"+
     "name varchar(150) NOT NULL,\n"+
+    "username varchar(150) NOT NULL,\n"+
     "email varchar(50) NOT NULL,\n"+
     "password varchar(50) NULL,\n"+
     "city varchar(50) NOT NULL,\n"+
