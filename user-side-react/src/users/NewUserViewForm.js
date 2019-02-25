@@ -67,7 +67,7 @@ class UserViewForm extends PureComponent {
       onPut(this.state.row.id, this.state.row);
     } else {
       onPost(this.state.row);
-      this.props.history.push('/users');
+      this.props.history.push('/');
     }
   }
 

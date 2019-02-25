@@ -8,17 +8,26 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
     
     - cd  /vnt-sports/server-side-node
     - npm install
+    * Edit the db_congig object in 
+        /server-side-node/create-table.js
+        /server-side-node/index.js
+
+        example: 
+            var db_config = {  
+                host     : 'localhost',  
+                user     : 'root',
+                password : '',
+                database : 'vnt_sports',
+                //port     : 3306, 
+            };
     
+    - node create-table.js
 
-    Before start you need to go to 
-    /server-side-node/index.js 
-    and edit the db_config object with the config
-    of your database!
-
+        * Make sure to see the log of the created tables in your terminal!
+        
     - node index.js
 
-    Make sure to see the log 'API working' in your terminal!
-
+        * Make sure to see the log 'API working' in your terminal!
 
     # How to start the frontEnd:
 

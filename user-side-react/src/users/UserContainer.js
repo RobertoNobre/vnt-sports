@@ -25,7 +25,13 @@ class UserContainer extends PureComponent {
 
 const mapStateToProps = state => ({
   row: state.User.row,
-  rows: state.User.rows,
+  rows: state.User.rows.map(
+    item => ({
+      ...item, 
+      photos: Math.floor((Math.random() * 100) + 1),
+      albums: Math.floor((Math.random() * 100) + 1),
+      posts: Math.floor((Math.random() * 100) + 1),
+    })),
   pageable: state.User.pageable,
   messages: state.User.messages,
   failures: state.User.failures,
