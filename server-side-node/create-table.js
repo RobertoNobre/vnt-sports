@@ -20,43 +20,9 @@ function createTable(conn){
     "added_by int NULL,\n"+
     "PRIMARY KEY (ID));";
     
-    const sqlPosts = "CREATE TABLE IF NOT EXISTS posts (\n"+
-    "id int NOT NULL AUTO_INCREMENT,\n"+
-    "title varchar(50) NOT NULL,\n"+
-    "text varchar(150) NOT NULL,\n"+
-    "id_aluno int NOT NULL,\n"+
-    "PRIMARY KEY (ID));";
-
-    const sqlAlbums = "CREATE TABLE IF NOT EXISTS albums (\n"+
-    "id int NOT NULL AUTO_INCREMENT,\n"+
-    "title varchar(50) NOT NULL,\n"+
-    "id_aluno int NOT NULL,\n"+
-    "PRIMARY KEY (ID));";
-
-    const sqlPhotos = "CREATE TABLE IF NOT EXISTS photos (\n"+
-    "id int NOT NULL AUTO_INCREMENT,\n"+
-    "title varchar(50) NOT NULL,\n"+
-    "id_album int NOT NULL,\n"+
-    "PRIMARY KEY (ID));\n";
-    
     conn.query(sqlUsers, function (error, results, fields){
         if(error) return console.log(error);
         console.log('table users created!');
-        //addRows(conn)
-    });
-    conn.query(sqlPosts, function (error, results, fields){
-        if(error) return console.log(error);
-        console.log('table posts created!');
-        //addRows(conn)
-    });
-    conn.query(sqlAlbums, function (error, results, fields){
-        if(error) return console.log(error);
-        console.log('table albums created!');
-        //addRows(conn)
-    });
-    conn.query(sqlPhotos, function (error, results, fields){
-        if(error) return console.log(error);
-        console.log('table photos created!');
         //addRows(conn)
     });
 

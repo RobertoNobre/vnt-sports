@@ -62,6 +62,7 @@ app.get('/users', function(req, res, next) {
 
     var numPerPage = parseInt(req.query.size, 10) || 1;
     var page = parseInt(req.query.page, 10) || 0;
+    var search = parseInt(req.query.search);
     var skip = page * numPerPage;
 
     var limit = skip + ',' + numPerPage;
@@ -77,6 +78,7 @@ app.get('/users', function(req, res, next) {
         '(SELECT COUNT(photos.id) FROM photos WHERE albums.id_aluno = users.id AND photos.id_album = albums.id) photos '+
         'FROM users '+
         'LEFT JOIN albums ON albums.id_aluno = users.id '+
+        'WHERE users.id != '+ search +
         ' GROUP BY users.id LIMIT ' + limit))
     .then(function(results) {
         var responsePayload = {
