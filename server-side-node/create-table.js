@@ -40,22 +40,22 @@ function createTable(conn){
     
     conn.query(sqlUsers, function (error, results, fields){
         if(error) return console.log(error);
-        console.log('tabela users criada!');
+        console.log('table users created!');
         //addRows(conn)
     });
     conn.query(sqlPosts, function (error, results, fields){
         if(error) return console.log(error);
-        console.log('tabela posts criada!');
+        console.log('table posts created!');
         //addRows(conn)
     });
     conn.query(sqlAlbums, function (error, results, fields){
         if(error) return console.log(error);
-        console.log('tabela albums criada!');
+        console.log('table albums created!');
         //addRows(conn)
     });
     conn.query(sqlPhotos, function (error, results, fields){
         if(error) return console.log(error);
-        console.log('tabela photos criada!');
+        console.log('table photos created!');
         //addRows(conn)
     });
 
@@ -64,6 +64,6 @@ function createTable(conn){
 
 connection.connect(function(err){
     if(err) return console.log(err);
-    console.log('conectou!');
+    console.log('connected!');
     createTable(connection);
 })

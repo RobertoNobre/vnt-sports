@@ -3,7 +3,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## How to start:
     
     - git clone https://github.com/RobertoNobre/vnt-sports.git
-    - cd vnt-sports
 
     # How to start the backEnd:
     
